@@ -269,6 +269,7 @@
     <button class="sidebar-btn active" id="btn-chat" onclick="showPanel('chat')">💬 Chat</button>
     <button class="sidebar-btn" id="btn-audit" onclick="showPanel('audit')">🔍 Audit</button>
     <button class="sidebar-btn" id="btn-git" onclick="showPanel('git')">📋 Git Analysis</button>
+    <button class="sidebar-btn" id="btn-summary" onclick="showPanel('summary')">🧠 Summary</button>
 
     <div class="scan-section">
       <h3>Index Project</h3>
@@ -294,6 +295,18 @@
           <button class="btn" style="width:auto;padding:8px 20px" onclick="runAudit()">Run Audit</button>
         </div>
         <div id="audit-results"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-summary">
+      <div class="audit-container">
+        <div class="audit-header">
+          <h2>Codebase Summary</h2>
+          <button class="btn" style="width:auto;padding:8px 20px" onclick="runSummary()">Summarize</button>
+        </div>
+        <div id="summary-results">
+          <p class="loading">Click "Summarize" to get an AI overview of your indexed codebase.</p>
+        </div>
       </div>
     </div>
 
@@ -407,6 +420,27 @@
     msgs.scrollTop = msgs.scrollHeight;
   }
 
+  async function runSummary() {
+    const container = document.getElementById('summary-results');
+    container.textContent = '';
+    const loading = document.createElement('p');
+    loading.className = 'loading';
+    loading.textContent = 'Summarizing indexed codebase...';
+    container.appendChild(loading);
+    try {
+      const res = await fetch(`${API}/api/chat/summary`);
+      const data = await res.json();
+      container.textContent = '';
+      container.appendChild(makeCard('Codebase Summary', data.summary || data.error || 'No summary available'));
+    } catch (err) {
+      container.textContent = '';
+      const errEl = document.createElement('p');
+      errEl.className = 'error';
+      errEl.textContent = 'Summary failed: ' + err.message;
+      container.appendChild(errEl);
+    }
+  }
+
   async function runAudit() {
     const container = document.getElementById('audit-results');
     container.textContent = '';
@@ -414,11 +448,12 @@
     loading.className = 'loading';
     loading.textContent = 'Running all agents in parallel... this may take a minute.';
     container.appendChild(loading);
+    const dir = document.getElementById('scan-dir').value.trim() || undefined;
     try {
       const res = await fetch(`${API}/api/debug/audit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ dir }),
       });
       const data = await res.json();
       container.textContent = '';

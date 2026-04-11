@@ -11,6 +11,9 @@
     "chat": "ts-node apps/cli/index.ts chat",
     "audit": "ts-node apps/cli/index.ts audit",
     "git-analysis": "ts-node apps/cli/index.ts git",
+    "summary": "ts-node apps/cli/index.ts summary",
+    "status": "ts-node apps/cli/index.ts status",
+    "clear": "ts-node apps/cli/index.ts clear",
     "server": "ts-node apps/api/server.ts",
     "dev": "nodemon --exec ts-node apps/api/server.ts"
   },

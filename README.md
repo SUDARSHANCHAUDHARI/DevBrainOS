@@ -84,11 +84,25 @@ Endpoints:
 ```
 POST /api/scan        { "dir": "/path" }        — index a project
 POST /api/chat        { "question": "..." }      — ask the brain
-POST /api/debug/audit                            — full AI audit
+GET  /api/chat/summary                           — summarize indexed codebase
+POST /api/debug/audit { "dir": "/path" }        — full AI audit (4 agents in parallel)
 GET  /api/git/commits                            — recent commits
 GET  /api/git/analyze                            — AI git analysis
+GET  /api/git/diff                               — diff of last commit
+GET  /api/git/changed                            — currently changed files
 GET  /api/scan/status                            — indexed file count
 GET  /health                                     — server health
+```
+
+### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama host (change if running remotely or on a different port) |
+| `PORT` | `3737` | API server port |
+
+```bash
+OLLAMA_BASE_URL=http://192.168.1.10:11434 npm run server
 ```
 
 ---
