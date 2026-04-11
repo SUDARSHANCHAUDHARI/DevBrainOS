@@ -1,0 +1,43 @@
+# User/plugin config — personal data, never commit
+.claude-plugin-config.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Logs
+*.log
+
+# Node/Web
+node_modules/
+.env
+.env.local
+dist/
+.next/
+
+# Database (local brain — never commit)
+*.db
+*.db-shm
+*.db-wal
+devbrain.db
+
+# Secrets
+*.env
+secrets.*
+credentials.*
+
+# Planning docs (stay local)
+plan.md
+PLAN_*.md
+SPEC_*.md
+PLUGIN_1_*.md
