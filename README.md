@@ -137,7 +137,7 @@ devbrainos/
 
 ## Author
 
-**SudarshanTechLabs** — [@SUDARSHANCHAUDHARI](https://github.com/SUDARSHANCHAUDHARI)
+Built by **[Sudarshan Chaudhari](https://github.com/SUDARSHANCHAUDHARI)** — SudarshanTechLabs.
 
 ---
 
