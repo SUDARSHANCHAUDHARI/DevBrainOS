@@ -3,7 +3,7 @@ import { scanDir } from "../../../services/scanner/fileScanner";
 import { Indexer } from "../../../services/scanner/indexer";
 import { VectorStore } from "../../../services/memory/vectorStore";
 
-const router = Router();
+const router: Router = Router();
 const store = new VectorStore();
 const indexer = new Indexer(store);
 

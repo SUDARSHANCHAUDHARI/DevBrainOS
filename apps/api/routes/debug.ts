@@ -7,7 +7,7 @@ import { VectorStore } from "../../../services/memory/vectorStore";
 import { scanDir } from "../../../services/scanner/fileScanner";
 import { buildDependencyGraph } from "../../../services/scanner/dependencyGraph";
 
-const router = Router();
+const router: Router = Router();
 const store = new VectorStore();
 
 router.post("/audit", async (req: Request, res: Response) => {

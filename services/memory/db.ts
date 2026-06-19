@@ -3,7 +3,7 @@ import path from "path";
 
 const DB_PATH = path.join(process.cwd(), "devbrain.db");
 
-export const db = new Database(DB_PATH);
+export const db: Database.Database = new Database(DB_PATH);
 
 db.pragma("journal_mode = WAL");
 

@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { DevBrain } from "../core/brain";
 import { VectorStore } from "../../../services/memory/vectorStore";
 
-const router = Router();
+const router: Router = Router();
 const store = new VectorStore();
 const brain = new DevBrain(store);
 

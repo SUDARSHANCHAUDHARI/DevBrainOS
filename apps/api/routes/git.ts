@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { getRecentCommits, getDiffSummary, getChangedFiles } from "../../../services/git/gitAnalyzer";
 import { gitAgent } from "../../../services/agents/gitAgent";
 
-const router = Router();
+const router: Router = Router();
 
 router.get("/commits", async (_req: Request, res: Response) => {
   try {
