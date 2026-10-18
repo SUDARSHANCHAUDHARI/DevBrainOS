@@ -111,6 +111,8 @@ GET  /health                                     — server health
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama host (change if running remotely or on a different port) |
 | `PORT` | `3737` | API server port |
+| `HOST` | `127.0.0.1` | API bind address |
+| `SCAN_ROOT` | current directory | `/api/scan` and `/api/debug/audit` only accept dirs under this root; other paths get a 403 |
 
 ```bash
 OLLAMA_BASE_URL=http://192.168.1.10:11434 npm run server
