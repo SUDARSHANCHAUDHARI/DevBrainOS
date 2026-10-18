@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { scanDir } from "../../../services/scanner/fileScanner";
 import { Indexer } from "../../../services/scanner/indexer";
 import { VectorStore } from "../../../services/memory/vectorStore";
+import { resolveScanDir, scanRootError } from "../core/scanRoot";
 
 const router: Router = Router();
 const store = new VectorStore();
@@ -15,7 +16,13 @@ router.post("/", async (req: Request, res: Response) => {
     return;
   }
 
-  const files = scanDir(dir);
+  const target = resolveScanDir(dir);
+  if (!target) {
+    res.status(403).json({ error: scanRootError });
+    return;
+  }
+
+  const files = scanDir(target);
   const results: string[] = [];
 
   for (const file of files) {

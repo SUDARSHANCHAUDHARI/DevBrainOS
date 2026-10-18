@@ -6,6 +6,7 @@ import gitRouter from "./routes/git";
 
 const app: Express = express();
 const PORT = process.env.PORT ?? 3737;
+const HOST = process.env.HOST ?? "127.0.0.1";
 
 app.use(express.json({ limit: "10mb" }));
 
@@ -18,8 +19,8 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok", version: "1.0.0" });
 });
 
-app.listen(PORT, () => {
-  console.log(`DevBrainOS API running at http://localhost:${PORT}`);
+app.listen(Number(PORT), HOST, () => {
+  console.log(`DevBrainOS API running at http://${HOST}:${PORT}`);
   console.log(`\nEndpoints:`);
   console.log(`  POST /api/scan       { dir: "/path" }         — index a project`);
   console.log(`  POST /api/chat       { question: "..." }      — ask about codebase`);

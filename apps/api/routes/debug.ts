@@ -6,12 +6,18 @@ import { architectureAgent } from "../../../services/agents/architectureAgent";
 import { VectorStore } from "../../../services/memory/vectorStore";
 import { scanDir } from "../../../services/scanner/fileScanner";
 import { buildDependencyGraph } from "../../../services/scanner/dependencyGraph";
+import { resolveScanDir, scanRootError } from "../core/scanRoot";
 
 const router: Router = Router();
 const store = new VectorStore();
 
 router.post("/audit", async (req: Request, res: Response) => {
   const { dir } = req.body as { dir?: string };
+  const target = dir ? resolveScanDir(dir) : undefined;
+  if (target === null) {
+    res.status(403).json({ error: scanRootError });
+    return;
+  }
 
   const rows = store.getAll();
   const context = rows.map((r) => r.text).join("\n\n").slice(0, 12000);
@@ -24,8 +30,8 @@ router.post("/audit", async (req: Request, res: Response) => {
     ]);
 
     let architecture = "Architecture analysis not available (no dir provided)";
-    if (dir) {
-      const files = scanDir(dir);
+    if (target) {
+      const files = scanDir(target);
       const graph = buildDependencyGraph(files);
       architecture = await architectureAgent(graph);
     }
